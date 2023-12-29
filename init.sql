@@ -192,4 +192,5 @@ INSERT INTO NhanSu (HoTen, DiaChi, SDT, Email, Username, MatKhau, IDChucVu) VALU
 
 INSERT INTO KhachHang (HoTen, DiaChi, SDT, Email) VALUES
 (N'Nguyễn Văn A', N'100 Địa Ngục', '0000000001', 'nva@gmail.com'),
-(N'Phạm Thị B', N'1024 Nước Mẽo', '0000000002', 'ptb@gmail.com')
+(N'Phạm Thị B', N'1024 Nước Mẽo', '0000000002', 'ptb@gmail.com'),
+(N'Phan Chu C', N'2048 Lịch Sử', '0000000003', 'pcc@gmaill.com')
