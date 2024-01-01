@@ -116,7 +116,7 @@ END
 GO
 
 
-CREATE OR ALTER PROCEDURE ThemLichSuNhapBanSach
+CREATE OR ALTER PROCEDURE ThemLichSuNhapBan
 	@IDSach VARCHAR(MAX), -- '#id1, #id2, ...'
 	@SoLuong VARCHAR(MAX), -- '#sl1, #sl2, ...'
 	@Gia VARCHAR(MAX) -- '#gia1, #gia2, ...'
@@ -160,17 +160,17 @@ AS BEGIN
 	FETCH NEXT FROM array_cursor
 	INTO @IDSachCursor, @SoLuongCursor, @GiaCursor
 	
-		INSERT INTO LichSuNhapBanSach (ThoiDiem) VALUES
+		INSERT INTO LichSuNhapBan (ThoiDiem) VALUES
 		(GETDATE())
 		
-		SELECT @IDLichSu = IDENT_CURRENT('LichSuNhapBanSach')
+		SELECT @IDLichSu = IDENT_CURRENT('LichSuNhapBan')
 		
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
 			
 			IF EXISTS(
 				SELECT *
-				FROM LichSuNhapBanSach lsnbs
+				FROM LichSuNhapBan lsnbs
 				INNER JOIN Sach_LichSuNhapBan slsnb ON lsnbs.ID = slsnb.IDLichSu
 				WHERE slsnb.IDSach = @IDSachCursor
 			)
@@ -179,7 +179,7 @@ AS BEGIN
 				WITH history AS (
 					SELECT *
 					FROM Sach_LichSuNhapBan slsnb 
-					INNER JOIN LichSuNhapBanSach lsnbs ON slsnb.IDLichSu = lsnbs.ID
+					INNER JOIN LichSuNhapBan lsnbs ON slsnb.IDLichSu = lsnbs.ID
 					WHERE slsnb.IDSach = @IDSachCursor
 				)
 				SELECT @TonTruoc = history.TonTruoc + history.SoLuong
@@ -235,7 +235,7 @@ AS BEGIN
 	FROM @ListSL sl
 	
 	DECLARE @IDLichSu INT
-	EXEC @IDLichSu = ThemLichSuNhapBanSach
+	EXEC @IDLichSu = ThemLichSuNhapBan
 		@IDSach=@IDSach,
 		@SoLuong=@SoLuong,
 		@Gia=@GIAs 

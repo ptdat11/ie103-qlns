@@ -37,7 +37,7 @@ AS BEGIN
 	FROM @TblTongQuat gs
 	WHERE gs.id = Sach.ID 
 	
-	EXEC ThemLichSuNhapBanSach
+	EXEC ThemLichSuNhapBan
 		@IDSach=@IDSach, 
 		@SoLuong=@SoLuong, 
 		@Gia=@Gia 
@@ -76,6 +76,10 @@ AS BEGIN
 		DECLARE @Diff DECIMAL(19, 4) = @ThanhTien - @SoTienTra
 		IF @Diff <> 0
 		BEGIN
+			DECLARE @TT VARCHAR(MAX) = @ThanhTien,
+					@STT VARCHAR(MAX) = @SoTienTra,
+					@D VARCHAR(MAX) = @Diff
+			PRINT(FORMATMESSAGE(N'Thành tiền: %sđ. Khách trả: %sđ, số tiền nợ tăng: %sđ', @TT, @STT, @D))
 			EXEC ThemLichSuTinhNo 
 				@IDKhachHang=@IDKhachHang,
 				@SoTien=@Diff
@@ -83,6 +87,36 @@ AS BEGIN
 	COMMIT TRANSACTION FEATURE
 	
 	RETURN @ThanhTien
+END
+GO
+
+
+CREATE OR ALTER PROCEDURE ThuTienNo
+	@IDKhachHang INT,
+	@SoTienThu DECIMAL(19, 4)
+AS BEGIN 
+	DECLARE @NoTruoc DECIMAL(19, 4)
+	SELECT @NoTruoc = lsn.TongNoTruoc + lsn.SoTien
+	FROM LichSuNo lsn 
+	WHERE lsn.ID = @IDKhachHang AND
+		lsn.ThoiDiem = (
+			SELECT MAX(lsn1.ThoiDiem) 
+			FROM LichSuNo lsn1 
+			WHERE lsn1.ID = lsn.ID
+		)
+	IF @NoTruoc <= 0
+	BEGIN 
+		DECLARE @ERR_MSG NVARCHAR(MAX) = FORMATMESSAGE(N'Khách hàng với ID %d không có khoản nợ', @IDKhachHang)
+		RAISERROR (@ERR_MSG, 16, 1)
+	END
+	ELSE BEGIN 
+		SET @SoTienThu = -1*@SoTienThu
+		BEGIN TRANSACTION FEATURE
+		EXEC ThemLichSuTinhNo 
+			@IDKhachHang=@IDKhachHang,
+			@SoTien=@SoTienThu
+		COMMIT TRANSACTION FEATURE
+	END	
 END
 GO
 
@@ -143,6 +177,7 @@ RETURN
 			WHERE ls.ID = ls2.ID
 		) OR ls.ThoiDiem IS NULL
 	) t2 ON t1.ID = t2.ID
+GO
 
 
 CREATE OR ALTER FUNCTION BaoCaoNo (
@@ -175,5 +210,4 @@ RETURN
 			WHERE t0.ID = t2.ID
 		) OR t2.ThoiDiem IS NULL
 	) sau ON truoc.ID = sau.ID
-	
-SELECT * FROM dbo.BaoCaoNo(DEFAULT, DEFAULT)
+GO

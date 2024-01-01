@@ -178,17 +178,17 @@ INSERT INTO ChucVu (TenChucVu) VALUES
 (N'Bảo vệ')
 
 
-INSERT INTO NhanSu (HoTen, DiaChi, SDT, Email, Username, MatKhau, IDChucVu) VALUES
-(N'Mr.CEO', N'123 Đường Thánh Gióng', '1234567890', 'mrceo@gmail.com', 'ceo', '1234', 1),
-(N'Nguyễn Thu Ngân', N'124 Đường Ngô Quyền', '0123456789', 'ntn@gmail.com', 'thungan', '4ktu', 4),
-(N'Lê Minh Huy', N'172 Đường Lý Thánh Tôn', '0234135789', 'lmh@gmail.com', 'thungan2', 'vkll', 4),
-(N'Đặng Nguyễn Tiến', N'568 Đường Phát Tài', '0155686868', 'imrich@gmail.com', 'cto', '6868', 2),
-(N'Mai Tao Giàu', N'921 Đường Số Khổ', '0524212121', 'ffo@gmail.com', 'cfo', 'asdf', 3),
-(N'Nguyễn Thế Minh', N'143 Phường Linh Trung', '0123224356', 'randommail@gmail.com', 'thungan3', '1234', 4),
-(N'Lê Huy Hoàng', N'234 Đường Lận Đận', '2381274362', 'bv@gmail.com', 'bv', '0123', 5),
-(N'Bảo Thị Vệ', N'234 Đường Giàu Sang', '2330974362', 'bv1@gmail.com', 'bv1', '1234', 5),
-(N'Bành Bảo Vệ', N'234 Đường Phú Quý', '9830974362', 'bv2@gmail.com', 'bv2', '2345', 5),
-(N'Lê Thị Bảo', N'234 Đường Tài Vận', '3710974362', 'bv3@gmail.com', 'bv3', '1234', 5)
+INSERT INTO NhanSu (HoTen, DiaChi, SDT, Email, IDChucVu) VALUES
+(N'Mr.CEO', N'123 Đường Thánh Gióng', '1234567890', 'mrceo@gmail.com', 1),
+(N'Nguyễn Thu Ngân', N'124 Đường Ngô Quyền', '0123456789', 'ntn@gmail.com', 4),
+(N'Lê Minh Huy', N'172 Đường Lý Thánh Tôn', '0234135789', 'lmh@gmail.com', 4),
+(N'Đặng Nguyễn Tiến', N'568 Đường Phát Tài', '0155686868', 'imrich@gmail.com', 2),
+(N'Mai Tao Giàu', N'921 Đường Số Khổ', '0524212121', 'ffo@gmail.com', 3),
+(N'Nguyễn Thế Minh', N'143 Phường Linh Trung', '0123224356', 'randommail@gmail.com', 4),
+(N'Lê Huy Hoàng', N'234 Đường Lận Đận', '2381274362', 'bv@gmail.com', 5),
+(N'Bảo Thị Vệ', N'234 Đường Giàu Sang', '2330974362', 'bv1@gmail.com', 5),
+(N'Bành Bảo Vệ', N'234 Đường Phú Quý', '9830974362', 'bv2@gmail.com', 5),
+(N'Lê Thị Bảo', N'234 Đường Tài Vận', '3710974362', 'bv3@gmail.com', 5)
 
 INSERT INTO KhachHang (HoTen, DiaChi, SDT, Email) VALUES
 (N'Nguyễn Văn A', N'100 Địa Ngục', '0000000001', 'nva@gmail.com'),

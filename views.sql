@@ -4,7 +4,7 @@ WITH temp AS (
 	SELECT s.ID, s.TenSach, s.GiaNhap, s.SoTrang, s.IDNhaXuatBan, lsnbs.ID AS IDLichSu, slsnb.TonTruoc, slsnb.SoLuong, lsnbs.ThoiDiem
 	FROM Sach s 
 	LEFT JOIN Sach_LichSuNhapBan slsnb ON s.ID = slsnb.IDSach
-	LEFT JOIN LichSuNhapBanSach lsnbs ON slsnb.IDLichSu = lsnbs.ID
+	LEFT JOIN LichSuNhapBan lsnbs ON slsnb.IDLichSu = lsnbs.ID
 )
 SELECT *
 FROM temp t

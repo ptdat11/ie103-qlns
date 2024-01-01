@@ -7,7 +7,7 @@ EXEC @TongTien = NhapSach
 	@Gia='100000, -1, 200000'
 --
 PRINT(@TongTien)
-SELECT * FROM Sach_LichSuNhapBan slsnb WHERE slsnb.IDLichSu = IDENT_CURRENT('LichSuNhapBanSach')
+SELECT * FROM Sach_LichSuNhapBan slsnb WHERE slsnb.IDLichSu = IDENT_CURRENT('LichSuNhapBan')
 
 
 ------ BAN SACH ------
@@ -21,12 +21,19 @@ EXEC @ThanhTien = BanSach
 	@SoTienTra=200000
 --
 PRINT(@ThanhTien)
-SELECT * FROM Sach_LichSuNhapBan slsnb WHERE slsnb.IDLichSu = IDENT_CURRENT('LichSuNhapBanSach')
+SELECT * FROM Sach_LichSuNhapBan slsnb WHERE slsnb.IDLichSu = IDENT_CURRENT('LichSuNhapBan')
 SELECT * FROM HoaDon hd WHERE hd.ID = IDENT_CURRENT('HoaDon')
 SELECT * FROM LichSuTinhNo lstn WHERE lstn.ID = IDENT_CURRENT('LichSuTinhNo')
 
-DELETE Sach
-WHERE ID = 100
+
+------ THU TIEN NO ------
+--
+EXEC ThuTienNo
+	@IDKhachHang=1, 
+	@SoTienThu=600000
+--
+SELECT * FROM LichSuTinhNo lstn WHERE lstn.ID = IDENT_CURRENT('LichSuTinhNo')
+
 
 ------ LIET KE SACH ------
 DECLARE @Keyword NVARCHAR(4000) = NULL,
@@ -53,9 +60,4 @@ DECLARE @From DATETIME = '1753-01-01 00:00:00.000',
 		@To DATETIME = '9999-12-31 23:59:59.997'
 --
 SELECT * FROM dbo.BaoCaoNo(@From, @To)
-
-
-SELECT *
-FROM sysusers
-WHERE issqluser = 1
 --
